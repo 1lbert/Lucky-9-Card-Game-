@@ -1,13 +1,18 @@
 
+
+
+// 1. Declare variable which soon to be replaced
 let cardEl = document.getElementById("cards-el")
 let sumEl = document.getElementById("sum-el")
 let messageEl= document.getElementById("message-el")
-
+// 2. Declare boolean for On/Off activation 
 let hasLucky9 = false
 let isAlive = false
+// 3. Declare initial values of Variables
 let cards = []
 let sumCards = 0
 
+// 4. create a function that generate Random numbers || application for more than 1 variable 
 function getRandomCard() {
     let randomNumber = Math.floor( Math.random()*13 ) + 1
     if (randomNumber > 10) {
@@ -18,6 +23,7 @@ function getRandomCard() {
 
 }
 
+// 5. create a function that initialize the Game
 function startGame() {
     isAlive = true
     let randomCardOne = getRandomCard()
@@ -29,14 +35,18 @@ function startGame() {
     renderGame()
 }
 
+// 6. create another function (inside a function) that do not override the another function 
 
 function renderGame() {
+    // 7. creating loop so that the index of Cards will be written accordingly
     cardEl.textContent = "Cards: " 
     for (let i = 0; i < cards.length; i++) {
         cardEl.textContent += cards[i] + " "
     }
-
+    // 7. creating summation so that all the sum will be written accordingly
     sumEl.textContent = "Sum: " + sumCards
+
+    // 8. creates conditional statements for Lucky 9 
     if (sumCards === 9 || sumCards === 19 || sumCards === 29) {
         messageEl.textContent = "You got Lucky 9!";
         hasLucky9 = true
@@ -49,26 +59,30 @@ function renderGame() {
     } else {
         messageEl.textContent = "Want to draw 'New Card' ?";
     }
-
-
 }
 
+// 9. create function for drawing new card without overriding the above code, just adding new index and sum to the initial code.
 function newCard() { 
+    // setting condition based on the declared boolean
     if (isAlive === true) {
+        // introducing new variable to suffice the equation
         let newCard = getRandomCard()
+        // adding the new variable to the existing variable
         sumCards += newCard
         cards.push(newCard)
         renderGame()  
+        // adding new condition to avoid redundancy
         if (hasLucky9 === false) { 
             messageEl.textContent = "Try Again";
         }
+        // reverting the boolean again to complete the Game
         hasLucky9 = false
         isAlive = false
     }
    
 }
 
-// for player2 
+// adding player2 for interaction purposes, same process above but different variables
 
 
 let p2cardEl = document.getElementById("p2cards-el")
