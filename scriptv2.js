@@ -68,3 +68,72 @@ function newCard() {
    
 }
 
+// for player2 
+
+
+let p2cardEl = document.getElementById("p2cards-el")
+let p2sumEl = document.getElementById("p2sum-el")
+let p2messageEl= document.getElementById("p2message-el")
+let p2cards = []
+let p2sumCards = 0
+
+function p2getRandomCard() {
+    let randomNumber = Math.floor( Math.random()*13 ) + 1
+    if (randomNumber > 10) {
+        return randomNumber 
+    } else {
+        return randomNumber
+    }
+
+}
+
+function p2startGame() {
+    psIsAlive = true
+    let p2randomCardOne = p2getRandomCard()
+    let p2randomCardTwo = p2getRandomCard() 
+
+    p2cards = [p2randomCardOne, p2randomCardTwo]
+    p2sumCards = p2randomCardOne + p2randomCardTwo
+    
+    p2renderGame()
+}
+
+
+function p2renderGame() {
+    p2cardEl.textContent = "Cards: " 
+    for (let i = 0; i < p2cards.length; i++) {
+        p2cardEl.textContent += p2cards[i] + " "
+    }
+
+    p2sumEl.textContent = "Sum: " + p2sumCards
+    if (p2sumCards === 9 || p2sumCards === 19 || p2sumCards === 29) {
+        p2messageEl.textContent = "You got Lucky 9!";
+        p2hasLucky9 = true
+    } else if (p2sumCards >= 10) {
+        p2sumCards - 10;
+        p2messageEl.textContent = "Want to draw 'New Card' ?";
+    } else if (p2sumCards >= 20) {
+        p2sumCards - 20;
+        p2messageEl.textContent = "Want to draw 'New Card' ?";
+    } else {
+        p2messageEl.textContent = "Want to draw 'New Card' ?";
+    }
+
+
+}
+
+function p2newCard() { 
+    if (psIsAlive === true) {
+        let p2newCard = p2getRandomCard()
+        p2sumCards += p2newCard
+        p2cards.push(p2newCard)
+        p2renderGame()  
+        if (p2hasLucky9 === false) { 
+            p2messageEl.textContent = "Try Again";
+        }
+        p2hasLucky9 = false
+        psIsAlive = false
+    }
+   
+}
+
